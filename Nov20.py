@@ -31,6 +31,12 @@ df_transaction_summary = pd.merge(df_transaction_count, df_transaction_avgvalue,
 df_transaction_summary = df_transaction_summary.rename(columns={'Date': 'NumTransactions', 'TransactionValue': 'AvgTransactionValue'})
 df_data = pd.merge(df_data, df_transaction_summary, on='Ticker', how='left')
 
+asset25, asset75 = df_data['TotalAssets'].quantile(.25), df_data['TotalAssets'].quantile(.75) 
+employee25, employee75 = df_data['NumberEmployees'].quantile(.25), df_data['NumberEmployees'].quantile(.75)
+df_data['CompanySize'] = 'Medium'
+df_data.loc[(df_data['TotalAssets']>asset75) & (df_data['NumberEmployees']>employee75),'CompanySize'] = 'Large'
+df_data.loc[(df_data['TotalAssets']<asset25) & (df_data['NumberEmployees']<employee25),'CompanySize'] = 'Small'
+
 # 2. Check the count, range, mean, median and standard deviation of each variable. Does everything look relatively reasonable?
 for col_name in df_data.columns:
     print(df_data[col_name].describe())
