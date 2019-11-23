@@ -14,9 +14,10 @@ import seaborn as sns
 #(a) "SPTSXComposite.csv" - TotalAssets
 #(b) "SPTSXCap_Employees.csv" - NumberEmployees & MarketCapitalization
 #(c) "SP_Transactions.csv" - Transaction variables - Make sure you explore before blindly joining with the above datasets. 
-df_composite = pd.read_csv('C:\\Deep Learning Exercise\\SPTSXComposite.csv')
-df_employees = pd.read_csv('C:\\Deep Learning Exercise\\SPTSXCap_Employees.csv', usecols=['Ticker', 'NumberEmployees', 'MarketCapitalization'])
-df_transactions = pd.read_csv('C:\\Deep Learning Exercise\\SP_Transactions.csv')
+path = 'C:\\DeepLearningExercise\\'
+df_composite = pd.read_csv(path+'SPTSXComposite.csv')
+df_employees = pd.read_csv(path+'SPTSXCap_Employees.csv', usecols=['Ticker', 'NumberEmployees', 'MarketCapitalization'])
+df_transactions = pd.read_csv(path+'SP_Transactions.csv')
 # Index(['Date', 'Ticker', 'TransactionType', 'TransactionValue'], dtype='object')
 df_employees = df_employees.drop_duplicates()
 
@@ -76,3 +77,10 @@ sns.boxplot(x='PrimarySector', y='MarketCapitalization', data=df_data_wsector)
 #    plt.title(sector)
 #    plt.show()
 
+# 8. Save the cleaned DataFrame as a csv or excel file (df.to_csv(path) or df.to_excel(path)). (Create a new directory for your outputs/reports)
+df_data.to_csv(path+'SPTSX_Combined.csv')
+
+# 7. Extra credit: Go back over your code, if you have not defined any functions, refactor your code to include at least one function.  Put your functions in a separate .py file and import it as a module. 
+#	Extra, extra credit: Create a package containing your functions file so that you can use the functions for other projects.
+
+# 9. Commit your code to git
